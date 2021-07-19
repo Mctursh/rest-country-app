@@ -1,15 +1,20 @@
+/*eslint-disable*/
 import React from "react"
+import ThemeContext from "./ThemeContext"
 
 class Header extends React.Component {
     constructor(props) {
         super(props)
+        this.handleToggle = this.props.handleToggle
     }
+
+    static contextType = ThemeContext;
 
     render() {
         return (
-            <header className="header pad" >
+            <header className={`header header-${this.context} pad`} >
                 <h3>Where in the world?</h3>
-                <div className="dark-container">
+                <div onClick={() => this.handleToggle()} className="dark-container">
                     <i className="fas fa-moon"></i>
                     <h6>Dark Mode</h6>
                 </div>                

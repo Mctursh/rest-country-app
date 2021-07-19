@@ -1,13 +1,20 @@
-import './App.css';
-import Body from './components/Body'; //eslint-disable-line no-unused-vars 
-import Header from "./components/Header" //eslint-disable-line no-unused-vars 
+/*eslint-disable no-unused-vars*/
+import React, { useState } from "react";
+import './App.css'; 
+import Main from './components/Main';
+import ThemeContext from "./components/ThemeContext" 
 
 function App() {
+  const [theme, setTheme] = useState("dark")
+
+  const handleToggle = () => {
+    setTheme((prev) => prev == "dark" ? "light" : "dark")
+  }
+
   return (
-    <div className="App">
-      <Header />
-      <Body />
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <Main handleToggle={handleToggle} />
+    </ThemeContext.Provider>  
   );
 }
 
