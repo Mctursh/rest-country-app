@@ -1,17 +1,20 @@
 import React from "react"
 import Country from "./Country" //eslint-disable-line no-unused-vars
 import FilterBox from "./FilterBox" //eslint-disable-line no-unused-vars
+import Loader from "./Loader" //eslint-disable-line no-unused-vars
 import SearchBox from "./SearchBox" //eslint-disable-line no-unused-vars
+import chunkCountries from "./helper"
 
 class Body extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             fetched : false,
-            countryList1 : null,
-            countryList2 : null,
-            countryList3 : null
+            displayedChunk : 0,
+            displaying: [],
+            chunks: null
         }
+        this.handleLoad = this.handleLoad.bind(this)
     }
 
     getCountries () {
@@ -24,13 +27,13 @@ class Body extends React.Component {
             xhr.onload = () => {
                 if (xhr.status == 200) {
                     let countries = JSON.parse(xhr.responseText)
+                    const chunks = chunkCountries(countries, 12)
                     this.setState({
-                        fetched: true,
-                        countryList1 : countries.slice(99),
-                        countryList2 : countries.slice(100, 200),
-                        countryList3 : countries.slice(200, 249)
+                        chunks,
+                        displaying: chunks[0],
+                        fetched: true
                     })
-                    console.log(countries);
+                    
                     
                 } else {
                     // Handles server response error
@@ -49,13 +52,23 @@ class Body extends React.Component {
 
     }
 
+    handleLoad() {
+        this.setState((prev) => {
+            let curr = prev.displaying
+            return {
+                displayedChunk: prev.displayedChunk + 1,
+                displaying :[...curr, ...prev.chunks[prev.displayedChunk + 1]]
+            }
+        })
+    }
+
     componentDidMount() {
         this.getCountries()        
     }
 
     render() {
 
-        const { countryList1, fetched } = this.state //eslint-disable-line
+        const { displayedChunk, chunks, fetched, displaying } = this.state //eslint-disable-line
         return(
             <div  >
                 <div className="pad body">
@@ -63,7 +76,11 @@ class Body extends React.Component {
                     <FilterBox />
                 </div>
                 <div className="pad country-parent ">
-                    {fetched &&  countryList1.map(({ flag, name, population, region, capital }, index) => <Country key={index} flag={flag} name={name} population={population} region={region} capital={capital} />)}
+                    {fetched &&  displaying.map(({ flag, name, population, region, capital }, index) => <Country key={index} flag={flag} name={name} population={population} region={region} capital={capital} />)}
+                </div>
+                {!fetched && <Loader />}
+                <div className="load-more-parent">
+                    <button className={`load-more load-${this.props.theme}`} onClick={this.handleLoad}>Load more</button>
                 </div>
             </div>
         )

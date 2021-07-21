@@ -11,7 +11,7 @@ export default function Main({ handleToggle }) {
     return (
         <div className={`App App-${theme}`}>
             <Header handleToggle={handleToggle}/>
-            <Body />
+            <Body theme={theme}/>
         </div>
     )
 }
