@@ -9,7 +9,7 @@ class FilterBox extends Component {
             <div>       
                 <div className={`filter filter-${theme}`}>
                     <p>FIlter by Region</p>
-                    <i class="fas fa-angle-down dd-btn"></i>            
+                    <i className="fas fa-angle-down dd-btn"></i>            
                 </div>
                 <div className={`region-parent region-parent-${theme}`}>
                     <ul className={`country-list-${theme}`} >
