@@ -4,6 +4,7 @@ import FilterBox from "./FilterBox" //eslint-disable-line no-unused-vars
 import Loader from "./Loader" //eslint-disable-line no-unused-vars
 import SearchBox from "./SearchBox" //eslint-disable-line no-unused-vars
 import chunkCountries from "./helper"
+import Button from "./Button" //eslint-disable-line no-unused-vars
 
 class Body extends React.Component {
     constructor(props) {
@@ -79,9 +80,7 @@ class Body extends React.Component {
                     {fetched &&  displaying.map(({ flag, name, population, region, capital }, index) => <Country key={index} flag={flag} name={name} population={population} region={region} capital={capital} />)}
                 </div>
                 {!fetched && <Loader />}
-                <div className="load-more-parent">
-                    <button className={`load-more load-${this.props.theme}`} onClick={this.handleLoad}>Load more</button>
-                </div>
+                {fetched && <Button theme={this.props.theme} handleLoad={this.handleLoad} /> }
             </div>
         )
     }
