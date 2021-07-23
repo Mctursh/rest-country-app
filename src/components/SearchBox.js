@@ -1,4 +1,3 @@
-//eslint-disable-next-line no-unused-vars
 /*eslint-disable no-unused-vars*/
 import React, { Component } from 'react' 
 import CancelIcon from './CancelIcon'
@@ -18,6 +17,7 @@ import ThemeContext from "./ThemeContext"
     static contextType = ThemeContext;
 
     handleChange (e) {
+        this.props.handleSearch(e.target.value)
         this.setState(() => {
            return {searchText: e.target.value}
         })
@@ -27,6 +27,7 @@ import ThemeContext from "./ThemeContext"
     }
 
     handleClear() {
+        this.props.handleSearch("")
         this.setState({searchText: "", active: false})
     }
 
@@ -36,7 +37,7 @@ import ThemeContext from "./ThemeContext"
         return (
             <div className={`search-parent search-parent-${theme}`} >
                 <i className={`fas fa-search fa-search-${theme}`}></i>
-                <input onChange={this.handleChange} value={searchText} type="search" name="" id={`search-${theme}`} placeholder="Search for a country..." />
+                <input onChange={this.handleChange} value={searchText} type="search" id={`search-${theme}`} placeholder="Search for a country..." />
                 {active && <CancelIcon theme={theme} handleClear={this.handleClear} />}
             </div>
         )

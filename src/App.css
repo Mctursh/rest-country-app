@@ -203,6 +203,8 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    box-shadow: 0 2.8px 2.2px rgb(0 0 0 / 3%),
+    0 6.7px 5.3px rgb(0 0 0 / 5%);
 }
 .country-info{
     border-radius: 4px;
