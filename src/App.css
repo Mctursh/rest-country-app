@@ -256,10 +256,17 @@ input[type="search"]::-webkit-search-cancel-button {
     opacity: .8;
 }
 
-.load-more-parent{
+.load-more-parent, .not-found{
     display: flex;
     justify-content: center;
     margin: 3em 0;
+}
+
+.not-found-dark p{
+    color:#ffffff;
+}
+.not-found-light p {
+    color: hsl(200, 15%, 8%);
 }
 
 .load-more{
