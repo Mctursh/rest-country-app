@@ -1,6 +1,7 @@
 /*eslint-disable no-unused-vars*/
 import React, { useContext } from 'react'
 import Body from './Body'
+import CountryPage from './CountryPage'
 import Header from './Header'
 import ThemeContext from "./ThemeContext"
 
@@ -11,7 +12,8 @@ export default function Main({ handleToggle }) {
     return (
         <div className={`App App-${theme}`}>
             <Header handleToggle={handleToggle}/>
-            <Body theme={theme}/>
+            <Body theme={theme} />
+            {/* <CountryPage /> */}
         </div>
     )
 }

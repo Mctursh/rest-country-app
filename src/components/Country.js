@@ -18,10 +18,10 @@ export default class Country extends Component {
                     <img src={flag} alt={`${name}'s flag`} />
                 </div>        
                 <div className={`country-metadata metadata-${theme}`}>
-                    <p id="country-name">{name}</p>
-                    <p id="rest">Population: <span id="value">{population}</span></p>
-                    <p id="rest">Region: <span id="value">{region}</span></p>
-                    <p id="rest">Capital: <span id="value">{capital}</span></p>
+                    <p className="country-name">{name}</p>
+                    <p className="rest">Population: <span className="value">{population}</span></p>
+                    <p className="rest">Region: <span className="value">{region}</span></p>
+                    <p className="rest">Capital: <span className="value">{capital}</span></p>
                 </div>
             </div>
         )

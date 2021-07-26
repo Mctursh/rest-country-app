@@ -7,7 +7,8 @@ export default class NotFound extends React.Component {
     render() {
         return (
             <div className={`not-found not-found-${this.props.theme}`}>
-                <p>No Country Match</p>
+                <p>{this.props.value}</p>
+                {this.props.children}
             </div>
         )
     }
