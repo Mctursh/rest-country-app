@@ -1,19 +1,29 @@
 /*eslint-disable no-unused-vars*/
 import React, { useContext } from 'react'
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom"
 import Body from './Body'
 import CountryPage from './CountryPage'
 import Header from './Header'
 import ThemeContext from "./ThemeContext"
 
+// const BrowserHistory = require('react-router/lib/BrowserHistory').default;
+
 export default function Main({ handleToggle }) {
 
     const theme = useContext(ThemeContext)
+    let history = useHistory();
     
     return (
-        <div className={`App App-${theme}`}>
-            <Header handleToggle={handleToggle}/>
-            <Body theme={theme} />
-            {/* <CountryPage /> */}
-        </div>
+        <BrowserRouter history={history}>
+            <div className={`App App-${theme}`}>
+                <Header handleToggle={handleToggle}/>
+                <Switch >
+                    <Route exact path="/">
+                        <Body theme={theme} />
+                    </Route>                    
+                    <Route path="/countries/:country" component={CountryPage} />                
+                </Switch>
+            </div>
+        </BrowserRouter>
     )
 }

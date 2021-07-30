@@ -12,7 +12,7 @@ export default class Button extends Component {
         const theme = this.context
         return (
             <div className="load-more-parent">
-                <button className={`load-more load-${theme} ${this.props.class}`} onClick={this.props.handleClick}>{this.props.value == "Back" ? <span><i class="fas fa-arrow-left"></i>Back</span> : this.props.value} </button>
+                <button className={`load-more load-${theme} ${this.props.class}`} onClick={this.props.handleClick}>{this.props.value == "Back" ? <span><i className="fas fa-arrow-left"></i>Back</span> : this.props.value} </button>
             </div>
         )
     }

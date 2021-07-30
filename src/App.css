@@ -3,6 +3,10 @@
     min-height: 100vh;
 }
 
+a{
+    text-decoration: none;
+}
+
 .App-dark{
     background-color: hsl(207, 26%, 17%);
 }
@@ -316,7 +320,7 @@ button{
 .info-parent{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: minmax(150px, auto);
+    grid-auto-rows: minmax(150px, 350px);
     column-gap: 5em;
 }
 
@@ -343,6 +347,7 @@ button{
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
     column-gap: 0.6em;
+    row-gap: 0.6em;
     margin: 3em 0 0;
 }
 

@@ -4,7 +4,7 @@ import Country from "./Country"
 import FilterBox from "./FilterBox" 
 import Loader from "./Loader"
 import SearchBox from "./SearchBox"
-import chunkArrays, { SearchAlgo, fetchCountry, loadMore, search, filter } from "./helper"
+import { fetchCountry, loadMore, search, filter } from "./helper"
 import Button from "./Button" 
 import NotFound from "./NotFound"
 
@@ -62,21 +62,23 @@ class Body extends React.Component {
 
         return(
             <div  >
-                <div className="pad body">
-                    <SearchBox handleSearch={this.handleSearch}/>
-                    <FilterBox handleFilter={this.handleFilter} currentRegion={currentRegion}/>
+                    <div className="pad body">
+                        <SearchBox handleSearch={this.handleSearch}/>
+                        <FilterBox handleFilter={this.handleFilter} currentRegion={currentRegion}/>
+                    </div>
+                    {error && <NotFound value={errorMsg} theme={this.props.theme} >
+                        <Button value="Try Again" handleClick={this.retry}/>
+                        </NotFound>}
+                    <div className="pad country-parent ">
+                        {fetched || isSearching && !notFound || isFiltered  ?  displaying.map(({ flag, name, population, region, capital, nativeName }, index) => <Country key={index} nativeName={nativeName} flag={flag} name={name} population={population} region={region} capital={capital} />) : null}
+                    </div>
+                    {!fetched && !isSearching && !isFiltered && !error && <Loader />}
+                    {fetched && !isSearching && displayedChunk < chunksFormed && <Button value="Load More" handleClick={this.handleLoad} /> }
+                    {isFiltered && displayedChunk < filteredChunksFormed && <Button value="Load More" handleClick={this.handleLoad} />}
+                    {notFound && <NotFound value="No Country Match" theme={this.props.theme}/>}
                 </div>
-                {error && <NotFound value={errorMsg} theme={this.props.theme} >
-                    <Button value="Try Again" handleClick={this.retry}/>
-                    </NotFound>}
-                <div className="pad country-parent ">
-                    {fetched || isSearching && !notFound || isFiltered  ?  displaying.map(({ flag, name, population, region, capital }, index) => <Country key={index} flag={flag} name={name} population={population} region={region} capital={capital} />) : null}
-                </div>
-                {!fetched && !isSearching && !isFiltered && !error && <Loader />}
-                {fetched && !isSearching && displayedChunk < chunksFormed && <Button value="Load More" handleClick={this.handleLoad} /> }
-                {isFiltered && displayedChunk < filteredChunksFormed && <Button value="Load More" handleClick={this.handleLoad} />}
-                {notFound && <NotFound value="No Country Match" theme={this.props.theme}/>}
-            </div>
+            
+            
         )
     }
 }

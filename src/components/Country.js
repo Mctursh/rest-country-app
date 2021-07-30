@@ -1,5 +1,7 @@
+/*eslint-disable no-unused-vars */
 import React, { Component } from 'react' //eslint-disable-line
 import ThemeContext from "./ThemeContext"
+import { Link } from "react-router-dom"
 
 export default class Country extends Component {
     constructor(props){
@@ -13,17 +15,19 @@ export default class Country extends Component {
         let theme = this.context
         const { name, flag, region, population, capital } = this.props
         return (
-            <div className={`country-info country-info-${theme}`}>
-                <div className="img-parent">
-                    <img src={flag} alt={`${name}'s flag`} />
-                </div>        
-                <div className={`country-metadata metadata-${theme}`}>
-                    <p className="country-name">{name}</p>
-                    <p className="rest">Population: <span className="value">{population}</span></p>
-                    <p className="rest">Region: <span className="value">{region}</span></p>
-                    <p className="rest">Capital: <span className="value">{capital}</span></p>
+            <Link to={`/countries/${name.toLowerCase()}`} >
+                <div className={`country-info country-info-${theme}`}>
+                    <div className="img-parent">
+                        <img src={flag} alt={`${name}'s flag`} />
+                    </div>        
+                    <div className={`country-metadata metadata-${theme}`}>
+                        <p className="country-name">{name}</p>
+                        <p className="rest">Population: <span className="value">{population}</span></p>
+                        <p className="rest">Region: <span className="value">{region}</span></p>
+                        <p className="rest">Capital: <span className="value">{capital}</span></p>
+                    </div>
                 </div>
-            </div>
+            </Link>
         )
     }
 }

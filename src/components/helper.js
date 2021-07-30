@@ -14,7 +14,7 @@ export const SearchAlgo = (arr, queryStr) => {
 }
 
 export const fetchCountry = (is) => {
-    const process = (is, attempt) => {
+    const process = (attempt) => {
         fetch("https://restcountries.eu/rest/v2/all/")
             .then(res => {
                 //Handling errors 
@@ -30,8 +30,10 @@ export const fetchCountry = (is) => {
                 
             })
             .then(data => {
+                const CountryNames = data.map((item) => item.name)
                 const chunks = ChunkCountries(data, 12)
                 is.setState({
+                    CountryNames,
                     chunksFormed: chunks.length - 1,
                     chunks,
                     displaying: chunks[0],
@@ -41,7 +43,7 @@ export const fetchCountry = (is) => {
         
           
     }
-    process(is, 0)    
+    process(0)    
 } 
 
 export const loadMore = (is) => {
@@ -72,11 +74,13 @@ export const loadMore = (is) => {
 }
 
 export const search = (str, is) => {
-    const processSearch = (countryNames) => {            
-        const match = SearchAlgo(countryNames, str)
+    const processSearch = (countryNames) => {
+        //returns country names of match            
+        const match = SearchAlgo(countryNames, str) 
         if (match.length > 0){
+            //returns matched country objects 
             const matchedCountries = [].concat.apply([], is.state.chunks).filter((item) => match.includes(item.name))
-            is.setState({displaying: matchedCountries})
+            is.setState({displaying: matchedCountries, matchedSearch: matchedCountries})
         } else {
             is.setState({notFound: true})
             console.log("no match");
@@ -84,15 +88,12 @@ export const search = (str, is) => {
         
     }
     //checking the length of the query string to know how to process
-    if(str.length == 1) {
+    if(str.length >= 1) {
         is.setState({isSearching: true, fetched: false, isFiltered: false, notFound: false})
         // this flattens the chunks into a single array
-        let nameArray = [].concat.apply([], is.state.chunks).map((item) => item.name) 
-        processSearch(nameArray)
-    }   else if (str.length > 1) {
-        let nameArray = [].concat.apply([], is.state.displaying).map((item) => item.name)
-        processSearch(nameArray)
-    } else {
+        let nameArray = [].concat.apply([], is.state.chunks).map((item) => item.name)
+        processSearch(nameArray)    
+    }   else {
         is.setState({fetched: true, isSearching: false, isFiltered: false, displaying: is.state.chunks[0], displayedChunk: 0, notFound: false})
         is.handleFilter("All")
     }
@@ -107,5 +108,37 @@ export const filter = (region, is) => {
     }
     region == "All" ? is.setState({currentRegion: "All"}) : process()
 }
+
+export const getCountry = (is, country) => {
+    const process = (attempt) => {
+        fetch(`https://restcountries.eu/rest/v2/all`)
+        .then((res) => {
+
+            //Handling errors 
+            if (!res.ok) {             
+                if( attempt < 3) {
+                    setTimeout(() => process(is, attempt + 1) ,1000)                      
+                } else {
+                    throw Error()
+                }
+            } else {
+                return res.json()
+            }
+        })
+        .then((data) => {
+            const chosenCountry = data.filter(item => item.name.toLowerCase() == country)
+            console.log(chosenCountry);
+            const countryNames = data.map(({name, alpha3Code}) => {
+                return {
+                    //uses the alpha3code value as the key
+                    [alpha3Code]: name
+                }    
+            })
+            is.setState({country: chosenCountry, fetched: true, countryNames: countryNames})
+        }).catch(() => is.setState({error: true, errorMsg:"Couldn't Fetch Country Data"}))
+    }
+    process(0)
+}
+
 
 export default ChunkCountries;
