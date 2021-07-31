@@ -12,6 +12,7 @@ export default class CountryPage extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            currCountry: "",
             fetched: false,
             country: [],
             error: false,
@@ -23,12 +24,19 @@ export default class CountryPage extends Component {
         this.handleBack = this.handleBack.bind(this)
         this.retry = this.retry.bind(this)  
     }
+    componentDidUpdate(){
+        if (this.props.match.params.country != this.state.currCountry) {
+            console.log(this.props.match.params.country);
+            this.fetchSelected(this.props.match.params.country)
+        };    
+    }
     
     handleBack() {
         this.props.history.goBack()
     }
 
     fetchSelected (country){
+        this.setState({currCountry: country, fetched: false})
         getCountry(this, country)
     }
 

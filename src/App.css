@@ -51,14 +51,13 @@ h1,h2,h3,h4,h5,h6,p{
 .body{
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch;
     margin: 3em 0;
     height: 56px;
     overflow: visible;
 }
 
 .search-parent{
-    height: 3.5em;
     width: 40%; 
     display: flex;
     align-items: center;
@@ -257,7 +256,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .rest{
     font-weight: 300;
-    font-size: 0.9em;
+    font-size: 0.8em;
+    margin: 0.6em 0;
 }
 .value{
     opacity: .8;
@@ -348,7 +348,7 @@ button{
     align-items: center;
     column-gap: 0.6em;
     row-gap: 0.6em;
-    margin: 3em 0 0;
+    margin: 1em 0 0;
 }
 
 .border-countries div{
@@ -377,6 +377,9 @@ button{
 
 .fa-arrow-left{
     margin: 0 1em 0 0;
+}
+.border {
+    font-size: .7em;
 }
 
 
@@ -429,3 +432,81 @@ button{
     display: flex;
     justify-content: center;
 }
+
+
+/**************************************MEDIA QUERIES*********************************/
+
+
+
+
+
+@media only screen and (max-width: 614px) {
+   .country-parent{
+       padding: 0 22%;
+   }
+}
+
+@media only screen and (max-width: 470px) {
+    header h3 {
+        font-size: .9em;
+    }
+
+    .country-parent {
+        padding: 0 18%;
+    }
+
+    .filter {
+        gap: 0;
+    }
+    .fa-search {
+        padding: 0 2em;
+    }
+}
+
+@media only screen and (max-width: 405px) {
+    .country-parent {
+        padding: 0 16%;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    }
+    .fa-search {
+        padding: 0 1.5em;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    .header{
+        height: 5em;
+    }
+    .country-list-dark, .country-list-light, .region-parent{
+        width: 100%;
+    }
+    .country-parent{
+        margin-top: 7.7em;
+    }
+    .filter{
+        height: 3.2em;
+        padding: 0 1.5em;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .filter p, .li{
+        font-size: .8em;
+    }
+    .filter-parent{
+        width: 40%;
+    }
+    #search-dark, #search-light{
+        height: 3.7em;
+        border-radius: 4px;
+    }
+    .search-parent{
+        height: 3.5em;
+        margin: 0 0 2.3em;
+        width: 100%;
+    }
+    .body{
+        flex-direction: column;
+        margin-top: 1.5em;
+    }
+}
+

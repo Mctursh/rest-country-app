@@ -32,13 +32,13 @@ class FilterBox extends Component {
         }
 
         return (
-            <div>       
+            <div className="filter-parent">       
                 <div className={`filter filter-${theme}`}>
                     <p>{`Filter by Region: ${this.props.currentRegion}`}</p>
                     <i onClick={this.showDropDown} className={`fas fa-angle-${dropDown ? "down" : "up"} dd-btn`}></i>            
                 </div>
                 <div style={style} className={`region-parent region-parent-${theme}`}>
-                    <ul className={`country-list-${theme}`} >
+                    <ul className={`country-list-${theme} region-parent-${theme}`} >
                         <li onClick={() => this.filter("Africa")} className={`li li-${theme}`}>Africa</li>
                         <li onClick={() => this.filter("Americas")} className={`li li-${theme}`}>America</li>
                         <li onClick={() => this.filter("Asia")} className={`li li-${theme}`}>Asia</li>

@@ -127,14 +127,13 @@ export const getCountry = (is, country) => {
         })
         .then((data) => {
             const chosenCountry = data.filter(item => item.name.toLowerCase() == country)
-            console.log(chosenCountry);
             const countryNames = data.map(({name, alpha3Code}) => {
                 return {
                     //uses the alpha3code value as the key
                     [alpha3Code]: name
                 }    
             })
-            is.setState({country: chosenCountry, fetched: true, countryNames: countryNames})
+            is.setState({country: chosenCountry, fetched: true, countryNames: countryNames, currCountry: country})
         }).catch(() => is.setState({error: true, errorMsg:"Couldn't Fetch Country Data"}))
     }
     process(0)

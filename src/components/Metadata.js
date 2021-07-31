@@ -25,7 +25,7 @@ export default class Metadata extends Component {
         // Extracting the all FullNames into a single array
         const borderFullNames = borderNames.map(item => Object.values(item))
         // console.log(countryNames);
-        console.log(borderFullNames);
+        
         // const borderName = borders.map(item =>  )
         return (
             <div className="info-parent">
@@ -50,7 +50,7 @@ export default class Metadata extends Component {
                     </div>
                     {borders.length> 0 && <div className="border-countries">
                         <p className="rest">Border Countries:</p>
-                        {borderFullNames.map(([borderCountry], idx) => <Link onClick={() => fetchNewCountry(borderCountry.toLowerCase())} key={idx} to={`/countries/${borderCountry.toLowerCase()}`}><Button  value={borderCountry} /></Link>)}
+                        {borderFullNames.map(([borderCountry], idx) => <Link onClick={() => fetchNewCountry(borderCountry.toLowerCase())} key={idx} to={`/countries/${borderCountry.toLowerCase()}`}><Button class="border" value={borderCountry} /></Link>)}
                     </div>}            
                 </div>
             </div>
