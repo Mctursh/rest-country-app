@@ -8,25 +8,25 @@ export default class Metadata extends Component {
     constructor (props) {
         super(props)
         
-    }
-
-    
+    }  
 
     static contextType = ThemeContext
     render() {
+        console.log(this.props)
         const theme =  this.context
         const { flag, name, population, region, nativeName, subregion, capital, topLevelDomain, currencies, languages, borders, countryNames,fetchNewCountry } = this.props
 
-        //Extracting the FullNames from the alpha3Codes
-        const borderNames = countryNames.filter(item => {
-            const [key] = Object.keys(item)
-            return  borders.includes(key)
-        })
-        // Extracting the all FullNames into a single array
-        const borderFullNames = borderNames.map(item => Object.values(item))
-        // console.log(countryNames);
-        
-        // const borderName = borders.map(item =>  )
+        //Extracting the FullNames from the alpha3Codes    
+        const extract = () => {
+            const names = []
+            countryNames.filter(item => {
+                const [ key ] = Object.keys(item)
+                borders.includes(key) ? names.push(item[key]) :  null
+            })
+            return names
+        }
+        const borderNames = borders ? extract() : []
+
         return (
             <div className="info-parent">
                 <div className="info-image-parent">
@@ -48,9 +48,9 @@ export default class Metadata extends Component {
                             <p className="rest">Languages: {languages.map((c, idx) => <span key={idx} className="value">{idx == 0 || idx == (languages.length - 1) ? c.name : `, ${c.name}, `}</span>)}</p>
                         </div>                 
                     </div>
-                    {borders.length> 0 && <div className="border-countries">
+                    {borders && <div className="border-countries">
                         <p className="rest">Border Countries:</p>
-                        {borderFullNames.map(([borderCountry], idx) => <Link onClick={() => fetchNewCountry(borderCountry.toLowerCase())} key={idx} to={`/countries/${borderCountry.toLowerCase()}`}><Button class="border" value={borderCountry} /></Link>)}
+                        {borderNames.map((borderCountry, idx) => <Link onClick={() => fetchNewCountry(borderCountry.toLowerCase())} key={idx} to={`/countries/${borderCountry.toLowerCase()}`}><Button class="border" value={borderCountry} /></Link>)}
                     </div>}            
                 </div>
             </div>

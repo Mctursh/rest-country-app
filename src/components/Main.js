@@ -18,7 +18,7 @@ export default function Main({ handleToggle }) {
         // Add basename configuration for gh-pages
     
     return (
-        <BrowserRouter baseline={process.env.PUBLIC_URL} history={history}>
+        <BrowserRouter basename={process.env.PUBLIC_URL} history={history}>
             <div className={`App App-${theme}`}>
                 <Header handleToggle={handleToggle}/>
                 <Switch >

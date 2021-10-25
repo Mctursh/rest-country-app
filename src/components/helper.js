@@ -15,7 +15,7 @@ export const SearchAlgo = (arr, queryStr) => {
 
 export const fetchCountry = (is) => {
     const process = (attempt) => {
-        fetch("https://restcountries.eu/rest/v2/all/")
+        fetch("https://restcountries.com/v2/all/")
             .then(res => {
                 //Handling errors 
                 if (!res.ok) {             
@@ -111,7 +111,7 @@ export const filter = (region, is) => {
 
 export const getCountry = (is, country) => {
     const process = (attempt) => {
-        fetch(`https://restcountries.eu/rest/v2/all`)
+        fetch(`https://restcountries.com/v2/all`)
         .then((res) => {
 
             //Handling errors 
