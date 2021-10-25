@@ -14,9 +14,9 @@ class Header extends React.Component {
         return (
             <header className={`header header-${this.context} pad`} >
                 <h3>Where in the world?</h3>
-                <div onClick={() => this.handleToggle()} className="dark-container">
+                <div onClick={() => this.handleToggle()} className={`${this.context}-container`}>
                     <i className="fas fa-moon"></i>
-                    <h6>Dark Mode</h6>
+                    <h6>{`${this.context} Mode`}</h6>
                 </div>                
             </header>
         )

@@ -5,10 +5,10 @@ import Main from './components/Main';
 import ThemeContext from "./components/ThemeContext" 
 
 function App() {
-  const [theme, setTheme] = useState("dark")
+  const [theme, setTheme] = useState("Dark")
 
   const handleToggle = () => {
-    setTheme((prev) => prev == "dark" ? "light" : "dark")
+    setTheme((prev) => prev == "Dark" ? "Light" : "Dark")
   }
 
   return (
